@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tloin <tloin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 12:58:09 by tloin             #+#    #+#             */
-/*   Updated: 2025/10/22 14:58:39 by tloin            ###   ########.fr       */
+/*   Updated: 2025/10/23 16:02:47 by tloin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*get_next_line(int fd)
 	static char	*stash[4096];
 	char		*line;
 
-	if (fd < 0 || fd >= 4096 || (size_t)GNL_BUFFER_SIZE == 0)
+	if (fd < 0 || fd >= 4096 || GNL_BUFFER_SIZE <= 0)
 		return (NULL);
 	stash[fd] = read_into_stash(fd, stash[fd]);
 	if (!stash[fd])
