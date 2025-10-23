@@ -6,18 +6,14 @@
 /*   By: tloin <tloin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 12:58:09 by tloin             #+#    #+#             */
-/*   Updated: 2025/10/23 16:02:47 by tloin            ###   ########.fr       */
+/*   Updated: 2025/10/23 16:22:05 by tloin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 #ifndef BUFFER_SIZE
-# define GNL_BUFFER_SIZE 32
-#elif BUFFER_SIZE > 0
-# define GNL_BUFFER_SIZE BUFFER_SIZE
-#else
-# define GNL_BUFFER_SIZE 32
+# define BUFFER_SIZE 32
 #endif
 
 static char	*read_into_stash(int fd, char *stash)
@@ -25,13 +21,13 @@ static char	*read_into_stash(int fd, char *stash)
 	char	*buf;
 	ssize_t	r;
 
-	buf = malloc((size_t)GNL_BUFFER_SIZE + 1);
+	buf = malloc((size_t)BUFFER_SIZE + 1);
 	if (!buf)
 		return (NULL);
 	r = 1;
 	while (r > 0 && !ft_strchr(stash, '\n'))
 	{
-		r = read(fd, buf, (size_t)GNL_BUFFER_SIZE);
+		r = read(fd, buf, (size_t)BUFFER_SIZE);
 		if (r == -1)
 			return (free(buf), free(stash), NULL);
 		if (r == 0)
@@ -94,7 +90,7 @@ char	*get_next_line(int fd)
 	static char	*stash[4096];
 	char		*line;
 
-	if (fd < 0 || fd >= 4096 || GNL_BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= 4096 || BUFFER_SIZE <= 0)
 		return (NULL);
 	stash[fd] = read_into_stash(fd, stash[fd]);
 	if (!stash[fd])
